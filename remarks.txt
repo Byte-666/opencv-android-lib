@@ -1,0 +1,15 @@
+
+
+armeabi-v7a with neon
+HAVE_FP16
+
+http://pullrequest.opencv.org/buildbot/builders/master-contrib_pack-contrib-android
+https://pullrequest.opencv.org/buildbot/export/opencv_releases/master-contrib_pack-contrib-android/
+https://www.google.com/search?client=firefox-b-d&q=HAVE_FP16
+
+ANDROID_NDK_HOST_X64, type 'bool', value 1
+
+http://silverglint.com/opencv-on-android/
+https://gist.github.com/tzutalin/f07f5633fd599001101006561689062b
+
+ANDROID_NATIVE_API_LEVEL
