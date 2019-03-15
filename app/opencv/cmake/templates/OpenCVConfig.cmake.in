@@ -116,10 +116,11 @@ if(NOT CMAKE_VERSION VERSION_LESS "2.8.11")
   # * http://www.cmake.org/cmake/help/v2.8.11/cmake.html#prop_tgt:INTERFACE_INCLUDE_DIRECTORIES
   foreach(__component ${OpenCV_LIB_COMPONENTS})
     if(TARGET ${__component})
-      set_target_properties(
+      target_include_directories(
           ${__component}
-          PROPERTIES
-          INTERFACE_INCLUDE_DIRECTORIES "${OpenCV_INCLUDE_DIRS}"
+          INTERFACE
+          $<BUILD_INTERFACE:${OpenCV_INCLUDE_DIRS}>
+          $<INSTALL_INTERFACE:include/opencv>          
       )
     endif()
   endforeach()

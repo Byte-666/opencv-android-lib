@@ -2,25 +2,41 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
     defaultConfig {
         applicationId "opencv.library"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         ndk {
-            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
         }
+        // set(OpenCV_STATIC ON)
+        // set(OpenCV_DIR ${CMAKE_BINARY_DIR})
+        // set(OPENCV_MODULE_TYPE STATIC)
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++14"
                 arguments (
-                    "-DOPENCV_FP16_DISABLE:BOOL=1",
-                    "-DBUILD_TESTS:BOOL=0",
-                    "-DBUILD_EXAMPLES:BOOL=0",
-                    "-DBUILD_ANDROID_EXAMPLES:BOOL=0",
-                    "-DBUILD_PERF_TESTS:BOOL=0",
-                    "-DWITH_TBB:BOOL=1")
+                        //"-DLIBRARY_OUTPUT_PATH=..\\output\\",
+                        "-DOPENCV_FP16_DISABLE:BOOL=1",
+                        "-DBUILD_FAT_JAVA_LIB:BOOL=0",
+                        "-DBUILD_SHARED_LIBS:BOOL=0",
+                        "-DBUILD_OPENCV_WORLD:BOOL=1",
+                        "-DBUILD_TESTS:BOOL=0",
+                        "-DBUILD_EXAMPLES:BOOL=0",
+                        "-DBUILD_ANDROID_EXAMPLES:BOOL=0",
+                        "-DBUILD_PERF_TESTS:BOOL=0",
+                        "-DWITH_TBB:BOOL=1"
+                        //,"--trace"
+                )
+                version "3.10"
             }
         }
     }
@@ -28,11 +44,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    externalNativeBuild {
-        cmake {
-            path "CMakeLists.txt"
         }
     }
 }

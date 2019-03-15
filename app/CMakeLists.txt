@@ -4,13 +4,29 @@
 # Sets the minimum version of CMake required to build the native library.
 
 cmake_minimum_required(VERSION 3.4.1)
+set(CMAKE_VERBOSE_MAKEFILE TRUE)
+
+# OpenCV setup
+
+add_subdirectory(opencv)
+find_library(OpenCV REQUIRED)
+
+# find_package(OpenCV REQUIRED)
+
+ocv_get_all_libs(OCV_MODULES OCV_EXTRA OCV_3RDPARTY)
+message(STATUS "OpenCV libraries: ${OCV_MODULES}")
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
-add_subdirectory(opencv)
+set(parent_DIR ${CMAKE_SOURCE_DIR})
+set(include_DIR ${parent_DIR}/include)
+include_directories(
+        ${include_DIR}
+        ${include_DIR}/opencv
+        ${include_DIR}/opencv2)
 
 add_library( # Sets the name of the library.
         native-lib
@@ -38,11 +54,13 @@ find_library( # Sets the name of the path variable.
 # can link multiple libraries, such as libraries you define in this
 # build script, prebuilt third-party libraries, or system libraries.
 
-find_library(OpenCV REQUIRED)
-
 target_link_libraries( # Specifies the target library.
-        ${OpenCV_LIBS}
         native-lib
+
+        # OpenCV
+        ${OCV_3RDPARTY}
+        ${OCV_MODULES}
+        ${OCV_EXTRA}
 
         # Links the target library to the log library
         # included in the NDK.
