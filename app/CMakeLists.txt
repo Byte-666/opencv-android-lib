@@ -16,17 +16,28 @@ find_library(OpenCV REQUIRED)
 ocv_get_all_libs(OCV_MODULES OCV_EXTRA OCV_3RDPARTY)
 message(STATUS "OpenCV libraries: ${OCV_MODULES}")
 
+set(OCV_INCLUDE_DIR "")
+foreach(m ${OCV_MODULES})
+    # only "public" headers need to be installed
+    get_target_property(incl ${m} INCLUDE_DIRECTORIES)
+    list(INSERT OCV_INCLUDE_DIR 0 ${incl})
+endforeach()
+ocv_list_unique(OCV_INCLUDE_DIR)
+ocv_list_reverse(OCV_INCLUDE_DIR)
+message(STATUS "OpenCV include_directories: ${OCV_INCLUDE_DIR}")
+
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
 set(parent_DIR ${CMAKE_SOURCE_DIR})
-set(include_DIR ${parent_DIR}/include)
+set(include_DIR ${parent_DIR}/opencv/include)
 include_directories(
         ${include_DIR}
         ${include_DIR}/opencv
-        ${include_DIR}/opencv2)
+        ${include_DIR}/opencv2
+        ${OCV_INCLUDE_DIR})
 
 add_library( # Sets the name of the library.
         native-lib

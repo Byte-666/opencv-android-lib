@@ -3,8 +3,6 @@
 
 #include "cv.h"
 
-#include "cv.h"
-
 extern "C" JNIEXPORT jstring JNICALL
 Java_opencv_library_MainActivity_stringFromJNI(
         JNIEnv *env,
