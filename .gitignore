@@ -8,5 +8,5 @@
 .DS_Store
 /build
 /captures
-.externalNativeBuild
-.hg/*
+.cxx
+.hg

@@ -4,4 +4,5 @@ syntax: glob
 app/.externalNativeBuild/*
 app/build/*
 gradle/*
+app/.cxx/*
 .git/*
